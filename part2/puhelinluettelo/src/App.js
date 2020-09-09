@@ -10,7 +10,7 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber , setNewNumber] = useState('')
   const [ filter , setFilter ] = useState('')
-  const [errorMessage, setErrorMessage] = useState(null)
+  const [ errorMessage, setErrorMessage ] = useState(null)
 
   useEffect(() => {
     noteService
@@ -42,17 +42,19 @@ const App = () => {
       let personsTL = persons.map(person => person.name.toLowerCase().replace(/\s/g, ''))
       if (personsTL.indexOf(newNameTL) > -1 || numbersRF.indexOf(newNumRF) > -1) {
         if(window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)){
+          const personId = persons[personsTL.indexOf(newNameTL)].id
           const nameToAdd = {
             name : newName,
-            number : newNumtoAdd
+            number : newNumtoAdd,
+            id : personId
           }
-          const personId = personsTL.indexOf(newNameTL) + 1
+          console.log(personId, nameToAdd)
           noteService
           .update(personId, nameToAdd)
           .then(returnedPerson => {
             setPersons(persons.map(person => person.id !== personId ? person : returnedPerson))
             setErrorMessage(
-              `Added ${newName}`
+              `Modified ${newName}`
             )
             setTimeout(() => {
               setErrorMessage(null)
@@ -61,6 +63,7 @@ const App = () => {
             setNewNumber('')
           })
           .catch(error => {
+            console.log(error.response.data)
             setErrorMessage(
               `Note '${newName}' was already removed from server`
             )
@@ -87,6 +90,7 @@ const App = () => {
             setNewNumber('')
           })
           .catch(error => {
+            console.log(error.response.data)
             setErrorMessage(
               `Information of${newName} has already been removed from server`
             )

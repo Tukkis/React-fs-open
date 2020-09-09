@@ -5,8 +5,8 @@ const filterFunc = ({ filter, persons, deletePerson }) => {
     const filtered = 
     persons.map(person => 
         person.name.toLowerCase().includes(copy) ? 
-            <div key={person.name}>
-                <p key={person.name}>{person.name}   {person.number}</p>
+            <div key={person.id}>
+                <p key={person.id} data-key={person.name}>{person.name}   {person.number}</p>
                 <button onClick={() => deletePerson(person.id, person.name)}>delete</button> 
             </div>
             : ''
