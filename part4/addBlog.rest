@@ -1,0 +1,9 @@
+POST http://localhost:3003/
+Content-Type: application/json
+
+{
+    "title": "VS Code REST client is pretty good",
+    "author": "Peruna",
+    "url": "nojoo",
+    "likes": 5
+}
