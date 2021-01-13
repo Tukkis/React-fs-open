@@ -5,7 +5,7 @@ blogRouter.get('/', (request, response) => {
     Blog
       .find({})
       .then(blogs => {
-        response.json(blogs.map(blog => blogtoJSON()))
+        response.json(blogs.map(blog => blog.toJSON()))
       })
   })
   
